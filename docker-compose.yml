@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+  # ─── PostgreSQL + PostGIS ───────────────────────────────────────────
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: awala_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: awala
+      POSTGRES_PASSWORD: awala_secret
+      POSTGRES_DB: awala_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U awala -d awala_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Redis ──────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: awala_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+  # ─── Meilisearch ────────────────────────────────────────────────────
+  meilisearch:
+    image: getmeili/meilisearch:v1.8
+    container_name: awala_search
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: awala_meili_key
+      MEILI_ENV: development
+    ports:
+      - "7700:7700"
+    volumes:
+      - meilidata:/meili_data
+
+  # ─── FastAPI Backend ────────────────────────────────────────────────
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: awala_api
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend:/app
+      - upload_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      meilisearch:
+        condition: service_started
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  pgdata:
+  redisdata:
+  meilidata:
+  upload_data:

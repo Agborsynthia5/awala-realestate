@@ -1,0 +1,93 @@
+name: awala_mobile
+description: "Awala RealEstate - Rapid property search engine for Buea"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # ─── State Management ─────────────────────────────────────────────
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.3.5
+
+  # ─── Navigation ───────────────────────────────────────────────────
+  go_router: ^14.6.2
+
+  # ─── HTTP & API ───────────────────────────────────────────────────
+  dio: ^5.7.0
+  retrofit: ^4.4.1
+
+  # ─── Local Storage / Offline Cache ────────────────────────────────
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.3.3
+  flutter_secure_storage: ^10.3.1
+
+  # ─── Maps ─────────────────────────────────────────────────────────
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  # ─── Geocoding / Location ─────────────────────────────────────────
+  geolocator: ^13.0.2
+  geocoding: ^3.0.0
+
+  # ─── Images ───────────────────────────────────────────────────────
+  cached_network_image: ^3.4.1
+  image_picker: ^1.1.2
+
+  # ─── Firebase ─────────────────────────────────────────────────────
+  firebase_core: ^3.8.1
+  firebase_messaging: ^15.1.6
+
+  # ─── UI Utilities ─────────────────────────────────────────────────
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.16
+  shimmer: ^3.0.0
+  lottie: ^3.1.3
+  url_launcher: ^6.3.1
+  share_plus: ^10.1.2
+  flutter_staggered_grid_view: ^0.7.0
+  smooth_page_indicator: ^1.2.0+3
+  carousel_slider: ^5.0.0
+  flutter_rating_bar: ^4.0.1
+  badges: ^3.1.2
+  fl_chart: ^0.69.0
+
+  # ─── Forms & Validation ───────────────────────────────────────────
+  form_builder_validators: ^11.0.0
+  flutter_form_builder: ^9.4.0
+
+  # ─── Notifications ────────────────────────────────────────────────
+  flutter_local_notifications: ^18.0.1
+
+  # ─── Utilities ────────────────────────────────────────────────────
+  intl: ^0.20.2
+  uuid: ^4.5.1
+  equatable: ^2.0.7
+  dartz: ^0.10.1
+  connectivity_plus: ^6.1.1
+  permission_handler: ^11.3.1
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
+  riverpod_generator: any
+  retrofit_generator: any
+  hive_generator: any
+  json_serializable: ^6.8.0
+  json_annotation: ^4.9.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+dependency_overrides:
+  intl: ^0.20.2
