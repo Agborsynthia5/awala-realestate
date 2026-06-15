@@ -5,7 +5,7 @@ abstract class AppConstants {
   /// Change this to your PC's LAN IP when testing on a physical device.
   /// Android emulator: use http://10.0.2.2:8001
   /// iOS simulator: use http://localhost:8001
-  static const String apiHost = 'http://192.168.1.232:8001';
+  static const String apiHost = 'http://10.0.2.2:8001';
   static const String baseUrl = '$apiHost/api/v1';
   // ─── Geospatial ───────────────────────────────────────────────────
   static const double molykoLat = 4.1527;

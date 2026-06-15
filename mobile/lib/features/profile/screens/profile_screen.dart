@@ -149,7 +149,7 @@ class ProfileScreen extends ConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
-                      onPressed: () => _confirmLogout(context),
+                      onPressed: () => _confirmLogout(context, ref),
                       icon: const Icon(Icons.logout_rounded,
                           color: AppColors.error),
                       label: const Text('Sign Out',
@@ -172,7 +172,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  void _confirmLogout(BuildContext context) {
+  void _confirmLogout(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -182,9 +182,10 @@ class ProfileScreen extends ConsumerWidget {
           TextButton(onPressed: () => Navigator.pop(context),
               child: const Text('Cancel')),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
-              context.go(AppRoutes.login);
+              await ref.read(authProvider.notifier).logout();
+              if (context.mounted) context.go(AppRoutes.login);
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
             child: const Text('Sign Out'),
